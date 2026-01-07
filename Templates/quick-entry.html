@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Quick Entry</title>
+    <link rel="stylesheet" href="/public/static/Styles.css" />
+  </head>
+  <body>
+    <section class="page">
+      <h1>Quick Entry</h1>
+      <div class="entry-section">
+        <h2>Add Expense</h2>
+        <input type="number" id="expense-amount" placeholder="Amount" />
+        <select id="expense-method">
+          <option>Cash</option>
+          <option>Card</option>
+        </select>
+        <input type="text" id="expense-source" placeholder="Source" />
+        <button id="add-expense-btn">Add Expense</button>
+      </div>
+      <div class="entry-section">
+        <h2>Add Income</h2>
+        <input type="number" id="income-amount" placeholder="Amount" />
+        <select id="income-method">
+          <option>Cash</option>
+          <option>Card</option>
+        </select>
+        <input type="text" id="income-source" placeholder="Source" />
+        <button id="add-income-btn">Add Income</button>
+      </div>
+      <a href="dashboard.html"
+        ><button id="dashboard-btn">Go to Dashboard</button></a
+      >
+    </section>
+  </body>
+</html>

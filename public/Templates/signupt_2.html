@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sign Up – Step 2</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <section class="page">
+      <h1>Almost Done</h1>
+
+      <form id="signup-form" action="signup-complete.html" method="POST">
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          placeholder="Phone Number"
+          required
+        />
+        <input
+          type="number"
+          id="income"
+          name="income"
+          placeholder="Monthly Income"
+          required
+        />
+        <input
+          type="number"
+          id="expenditure"
+          name="expenditure"
+          placeholder="Estimated Monthly Expenditure"
+          required
+        />
+        <input
+          type="number"
+          id="balance"
+          name="balance"
+          placeholder="Current Balance"
+          required
+        />
+        <input
+          type="number"
+          id="savings"
+          name="savings"
+          placeholder="Savings Goal"
+          required
+        />
+
+        <button type="submit" id="submit-btn">Create Account</button>
+      </form>
+
+      <a id="back-link" href="signup-step1.html">Back</a>
+    </section>
+
+    <script src="/public/static/script.js"></script>
+  </body>
+</html>
