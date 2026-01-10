@@ -1,14 +1,19 @@
 #this will be for the database connection 
 import mysql.connector
 
+def get_connection():
+    db=mysql.connector.connect(
+        user= "root",
+        host= "localhost",  
+        password= "",
+        database= "Keseph_DB"
+    )   
+    return db
 
-db=mysql.connector.connect(
-    user= "admin",
-    host= "localhost",
-    password= "admin"
-)
 
-cur=db.cursor()
 
+  
+
+ 
 
 

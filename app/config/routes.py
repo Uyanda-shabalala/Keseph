@@ -1,14 +1,22 @@
-import flask
-from logic.User_Logic import login,create_account
+from flask import Flask, request, jsonify
+
+
+from ..logic.User_Logic import login,create_account
 
 
 app = flask.Flask(__name__)
 
-app.route("api/login", methods=["POST"])
+@app.route("/api/login", methods=["POST"])
+def login_route():
+    data= request.get_json() 
+    result=login()
+    
+    return(result)
 
-login()
 
+@app.route("/api/createaccount",methods=["POST"])
 
-app.route("api/createaccount",methods=["POST"])
-
-create_account()
+def create_account_route():
+    data=request.get_json()
+    result=create_account()
+    return(result)
