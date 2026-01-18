@@ -1,8 +1,8 @@
 #this will be for all the classes 
  
+from ast import pattern
 from app.config.database import get_connection
-from email_validator import validate_email, EmailNotValidError
-
+import re 
 class User ():
 
     def __init__(self,fullName,surname,email,password,phone):
@@ -16,22 +16,21 @@ class User ():
     
     def get_surname(self):
           return self.Surname
-    
-    def user_exits(self):
-         
-         db=get_connection()
 
-         cur=db.cursor()
-         sql=cur.execute("SELECT * FROM KESEPH_DB WHERE email=%s")
-         value=(sql,self.email)
-            
+    def is_valid_email(self):
+     # Regex pattern:
+    # ^[\\w\\.-]+  -> Starts with one or more word characters, periods, or hyphens (local part)
+    # @             -> Followed by an '@' symbol
+    # [a-zA-Z\\d-]+ -> Followed by one or more letters, digits, or hyphens (domain name)
+    # \\.           -> Followed by a period
+    # [a-zA-Z]{2,}$ -> Ends with 2 or more letters (top-level domain)
 
+      pattern = r'^[\w\.-]+@[a-zA-Z\d-]+\.[a-zA-Z]{2,}$'
 
-    def validate_email(self):
+       # Use re.fullmatch  to ensure the whole string matches the pattern
+      if re.fullmatch(pattern, self.email):
+        return True
+      else:
+        return False
 
-      try :
-          emailinfo=validate_email(self.email,EmailNotValidError)
-      except EmailNotValidError as e: 
-           print(e)
-      
   

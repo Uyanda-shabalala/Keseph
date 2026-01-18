@@ -1,16 +1,31 @@
 from ..config.models import User
 from app.config.database import get_connection
 from app.config.constants import  user_exists
+from flask import Flask
+from flask_bcrypt import Bcrypt
+
 
 def login(email,password):  
     db=get_connection()
     cur=db.cursor()
 
-    sql="SELECT * FROM Users WHERE email=%s AND password=%s"
-    values=(email,password)
-    cur.execute(sql, values)
+    sql= "SELECT email,password FROM Users WHERE email=%s"
+    values(email,)
+    cur.execute(sql,values)
+    emailResult= cur.fetchone
+    result=cur.fetchall()
 
-    result=cur.fetchone()
+    if emailResult:
+
+        Bcrypt.check_password_hash()
+        sql="SELECT * FROM Users WHERE email=%s AND password=%s"
+
+
+        values=(email,password)
+        cur.execute(sql, values)
+
+        result=cur.fetchone()# i need to use bcrypt here to check if the hashed password matches the one enterd by the user 
+
 
     cur.close()
     db.close()
@@ -34,16 +49,21 @@ def create_account(firstname,surname,email,password,cell):
 
     db=get_connection()
 
+    # hash the password by the user first for security reasons never trust the user to enter clean text
+
+    hashed_password=Bcrypt.generate_password_hash(password) # use flask's  flask-bcrypt bcrypt wrapper to simply hashin process by removing the whole process of adding salt and encoding......etc
+
     cur=db.cursor()
-    sql="INSERINTO Users (firstname,surname,email,password,cell) VALUES (%s,%s,%s,%s,%s)"
-    values=(newUser.fullName,newUser.surname,newUser.email,newUser.password,newUser.phone)
+    sql="INSERT INTO Users (firstname,surname,email,password,cell) VALUES (%s,%s,%s,%s,%s)"
+    values=(newUser.fullName,newUser.surname,newUser.email,hashed_password,newUser.phone)
     cur.execute(sql, values)
 
     cur.close()
     db.commit()
     db.close()
 
-    return {"status": "success", "message": "Account created successfully."}
+    return {"status": "success", "message": "Account created successfully."}# return status has chnaged so that the reponse can be used in the front end by js 
+
 
     
 
