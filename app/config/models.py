@@ -1,7 +1,4 @@
 #this will be for all the classes 
- 
-from ast import pattern
-from app.config.database import get_connection
 import re 
 class User ():
 
@@ -32,5 +29,19 @@ class User ():
         return True
       else:
         return False
+      
 
-  
+class Expense():
+    
+    def __init__(self,amount,description,type,id):
+
+        self.amount=amount
+        self.description=description
+        self.type=type
+        self.type=id    
+        
+    def is_Valid_amount(self):
+        
+        if self.amount<0 :
+            return False
+        return True 

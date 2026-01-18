@@ -3,20 +3,39 @@ from flask import Flask, request, jsonify
 
 from ..logic.User_Logic import login,create_account
 
-
-app = flask.Flask(__name__)
+# apis always return json responses 
+app = Flask(__name__)
 
 @app.route("/api/login", methods=["POST"])
 def login_route():
     data= request.get_json() 
-    result=login()
+
+    if data is None:
+        return jsonify({"error": "Invalid JSON or missing Content-Type: application/json"}), 400
     
-    return(result)
+    email=data.get('email')
+    pw=data.get('password')
+    result=login(email,pw)
+    return(jsonify(result))
 
 
 @app.route("/api/createaccount",methods=["POST"])
 
 def create_account_route():
     data=request.get_json()
-    result=create_account()
-    return(result)
+    
+
+    if data is None: 
+        return jsonify({"error": "Invalid JSON or missing Content-Type: application/json"}), 400
+    
+
+    name=data.get('firstname')
+    surname=data.get('surname')
+    email=data.get('email')
+    pw=data.get('password')
+    cell=data.get('phone')
+
+
+    
+    result=create_account(name,surname,email,pw,cell)
+    return(jsonify(result))

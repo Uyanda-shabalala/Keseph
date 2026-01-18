@@ -9,30 +9,42 @@
     <section class="page">
       <h1>Budget Tracker</h1>
 
-      <form action="" id="login" name="login ">
+      <form id="login-form">
         <input type="email" id="email" placeholder="Email" />
         <input type="password" id="password" placeholder="Password" />
-        <button type="submit" name="login-btn">Login</button>
+        <button type="submit">Login</button>
       </form>
       <a id="create-link" href="#">Create Account</a>
       <a id="forgot-link" href="#">Forgot Password?</a>
     </section>
 
     <script>
-      const form = document.querySelector("form");
+      const loginForm = document.getElementById("login-form");
 
-      document.addEventListener("submit", (event) => {
-        event.preventDefault();
-        const formData = new FormData(form); // creating a new form data object to that stores the data(entries) of the form
-        const data = Object.fromEntries(formData); //converting the data received from the form from a list of key value pairs into objects
+      loginForm.addEventListener("submit", function (event) {
+        event.preventDefault(); // prevent default form submission aka reloading the page
 
-        const loginInfo = JSON.stringify(data);
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
 
+        const loginData = {
+          email: email,
+          password: password,
+        };
+
+        // Convert to JSON and send to backend
         fetch("/api/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: loginInfo,
-        });
+          body: JSON.stringify(loginData),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Login response:", data);
+          })
+          .catch((error) => {
+            console.error("Error logging in:", error);
+          });
       });
     </script>
   </body>

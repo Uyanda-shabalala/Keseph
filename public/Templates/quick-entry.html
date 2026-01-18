@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/public/static/Styles.css" />
   </head>
   <body>
+
     <section class="page">
       <h1>Quick Entry</h1>
       <div class="entry-section">
@@ -16,25 +17,45 @@
           <option>Cash</option>
           <option>Card</option>
         </select>
-        <input type="text" id="expense-source" placeholder="Source" />
+         <select id="expense-Type">
+          <option value="Leisure">leisure</option>
+          <option value="Health">Health</option>
+          <option value="Food">Food</option>
+          <option value="Transport">Transport</option>
+          <option value="Clothes">Clothes</option>
+          <option value="Home">Home expense</option>
+          </option>
+        </select>
+        <input type="text" id="expense-Description" placeholder="Description" />
         <button id="add-expense-btn">Add Expense</button>
       </div>
       </form>
+
       <div class="entry-section">
         <h2>Add Income</h2>
         <form method="post" name="income"id="Expense-entry">
         <input type="number" id="income-amount" placeholder="Amount" />
         <select id="income-method">
-          <option>Cash</option>
-          <option>Card</option>
         </select>
         <input type="text" id="income-source" placeholder="Source" />
         <button id="add-income-btn">Add Income</button>
         </form>
+
       </div>
+
+
       <a href="dashboard.html"
         ><button id="dashboard-btn">Go to Dashboard</button></a
       >
     </section>
+
+    <script src="/public/static/script.js">
+
+      //i need to have 2 separate event listerners one listening for an expense and an income then call the respective function.
+      //  That function will be exported from their respective file then the form data will be passed as parameters into the function 
+      
+    </script>
+
+
   </body>
 </html>
