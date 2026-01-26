@@ -14,11 +14,11 @@
         <form action="" method="post" name="Expense" id="Expense-entry">
         <input type="number" id="expense-amount" placeholder="Amount" />
         <select id="expense-method">
-          <option>Cash</option>
-          <option>Card</option>
+          <option value="Cash">Cash</option>
+          <option value="Card">Card</option>
         </select>
-         <select id="expense-Type">
-          <option value="Leisure">leisure</option>
+         <select id="expense-category">
+          <option value="Leisure">Leisure</option>
           <option value="Health">Health</option>
           <option value="Food">Food</option>
           <option value="Transport">Transport</option>
@@ -33,9 +33,11 @@
 
       <div class="entry-section">
         <h2>Add Income</h2>
-        <form method="post" name="income"id="Expense-entry">
+        <form method="post" name="income" id="income-entry">
         <input type="number" id="income-amount" placeholder="Amount" />
         <select id="income-method">
+          <option value="Cash">Cash</option>
+          <option value="Bank Transfer">Bank Transfer</option>
         </select>
         <input type="text" id="income-source" placeholder="Source" />
         <button id="add-income-btn">Add Income</button>
@@ -50,10 +52,39 @@
     </section>
 
     <script src="/public/static/script.js">
-
+      
+      import { new_expense } from "./expense.js";
+      import { new_income } from "./income.js";
       //i need to have 2 separate event listerners one listening for an expense and an income then call the respective function.
       //  That function will be exported from their respective file then the form data will be passed as parameters into the function 
       
+        document.getElementById("add-expense-button").addEventListener("click",()=>{
+
+
+          const expense=  {
+              Amount:document.getElementById("expense-amount").value,
+              Method:document.getElementById("expense-method").value,
+              Category:document.getElementById("expense-category").value,
+              Description:document.getElementById("expense-Description").value,
+              Date: new Date()
+          }  //create an object with the data from the form  because this is a single real world thing with attributes contributing to its overall object 
+
+          new_expense(expense);
+        });
+
+        document.getElementById("add-income-button").addEventListener("click",()=>{
+          const income=  {
+              Amount:document.getElementById("income-amount").value,
+              Method:document.getElementById("income-method").value,
+              Source:document.getElementById("income-source").value,
+              Date: new Date()
+          }  //create an object with the data from the form because this is a single real world thing with attributes contributing to its overall object 
+
+          new_income(income);
+        });
+        
+
+
     </script>
 
 

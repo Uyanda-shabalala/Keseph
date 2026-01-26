@@ -9,47 +9,27 @@
     <section class="page">
       <h1>Create Your Account</h1>
 
-      <form id="signup-form" action="signup-step2.html" method="GET">
+      <form id="signup-form">
         <input
-          type="text"
-          name="firstname"
           id="firstname"
+          name="firstname"
           placeholder="First Name"
           required
         />
+        <input id="surname" name="surname" placeholder="Surname" required />
         <input
-          type="text"
-          name="surname"
-          id="surname"
-          placeholder="Surname"
-          required
-        />
-        <input
-          type="email"
-          name="email"
           id="email"
+          name="email"
+          type="email"
           placeholder="Email"
           required
         />
+        <input id="phone" name="phone" placeholder="Phone" required />
 
+        <input id="password" type="password" placeholder="Password" required />
         <input
-          type="tel"
-          id="phone"
-          name="phone"
-          placeholder="Phone Number"
-          required
-        />
-
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          required
-        />
-        <input
-          type="password"
-          name="confirm_password"
           id="confirm_password"
+          type="password"
           placeholder="Confirm Password"
           required
         />
@@ -58,8 +38,43 @@
       </form>
     </section>
 
-    <script src="/public/static/script.js">
-      create_account()
+    <script>
+      const form = document.getElementById("signup-form");
+
+      form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const firstname = document.getElementById("firstname").value;
+        const surname = document.getElementById("surname").value;
+        const email = document.getElementById("email").value;
+        const phone = document.getElementById("phone").value;
+        const password = document.getElementById("password").value;
+        const confirmPassword =
+          document.getElementById("confirm_password").value;
+
+        if (password !== confirmPassword) {
+          alert("Passwords do not match");
+          return;
+        }
+
+        const payload = {
+          firstname,
+          surname,
+          email,
+          phone,
+          password,
+        };
+
+        const response = await fetch("/api/createaccount", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+
+        if (response.ok) {
+          window.location.href = "/signup2";
+        }
+      });
     </script>
   </body>
 </html>
